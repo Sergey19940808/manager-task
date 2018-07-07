@@ -1,4 +1,96 @@
+input[name="name"],
+input[name="desc"],
+input[name="priority"] {
+    height: 19px;
+}
+
 .add-input {
     margin-left: 20px;
     display: flex;
+}
+
+.add-input-edit {
+    display: flex;
+}
+
+.add-input__block {
+    margin-right: 20px;
+}
+
+.add-input__field {
+    outline-color: aqua;
+    color: mediumpurple;
+}
+
+.add-input__button {
+    height: 14px;
+    margin: 48px 20px 0 10px;
+    cursor: pointer;
+    background-color: #008CBA;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    padding: 5px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.add-input__button:hover {
+    background-color: cornflowerblue;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background: #2c3e50 none;
+}
+
+.add-input__priority {
+    position: relative;
+    display: block;
+    width: 20em;
+    height: 25px;
+    line-height: 1.5;
+    background: #2c3e50;
+    overflow: hidden;
+    color: mediumpurple;
+}
+
+select {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0 0 0 .5em;
+    color: #fff;
+    cursor: pointer;
+}
+select::-ms-expand {
+    display: none;
+}
+
+.add-input__priority::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0 1em;
+    background: #34495e;
+    pointer-events: none;
+}
+
+.add-input__priority:hover::after {
+    color: #9AB999;
+}
+.add-input__priority::after {
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
 }

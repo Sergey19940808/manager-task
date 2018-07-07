@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import AddInput from "../Input/AddInput";
 import ListTask from "../Tasks/ListTask";
 
 class App extends Component {
@@ -11,7 +10,6 @@ class App extends Component {
                     Cписок ваших задач:
                 </header>
                 <section className="app-container__content">
-                    <AddInput />
                     <ListTask />
                 </section>
             </section>
