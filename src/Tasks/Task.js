@@ -3,8 +3,23 @@ import './Task.css';
 import Input from "../Input/Input";
 
 class Task extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            date: new Date()
+        }
+    }
+
+    componentDidMount() {
+        this.interval = setInterval(() => {
+            this.setState({date: new Date()});
+        }, 1000);
+    }
 
     render() {
+        let datetime = new Date();
+        let isDeadline = Date.parse(datetime) > Date.parse(this.props.deadline);
+
         return (
             <section className="task">
                 {
@@ -21,17 +36,28 @@ class Task extends Component {
                         :
 
                         <section>
-                            <span className={this.props.marked ? "task__item marked" : "task__item"}>
-
+                            <span
+                                style={{ color: isDeadline === true ? "red": "" }}
+                                className={this.props.marked ? "task__item marked" : "task__item"}
+                            >
                                 {this.props.name}
                             </span>
-                            <span className={this.props.marked ? "task__item marked" : "task__item"}>
+                            <span
+                                style={{ color: isDeadline === true ? "red": "" }}
+                                className={this.props.marked ? "task__item marked" : "task__item"}
+                            >
                                 {this.props.desc}
                             </span>
-                            <span className={this.props.marked ? "task__item marked" : "task__item"}>
+                            <span
+                                style={{ color: isDeadline === true ? "red": "" }}
+                                className={this.props.marked ? "task__item marked" : "task__item"}
+                            >
                                 {this.props.priority}
                             </span>
-                            <span className={this.props.marked ? "task__item marked" : "task__item"}>
+                            <span
+                                style={{ color: isDeadline === true ? "red": "" }}
+                                className={this.props.marked ? "task__item marked" : "task__item"}
+                            >
                                 {this.props.deadline}
                             </span>
                             <a href="#" data-index={this.props.index} className="task__link" onClick={this.props.editShow}>

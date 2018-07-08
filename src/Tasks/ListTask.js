@@ -37,7 +37,7 @@ class ListTask extends Component {
                         edit: false
                     })
                 }, () => {
-                    localStorage.setItem("tasks", JSON.stringify(this.state.tasks))
+                    localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
                 }
             );
 
@@ -56,22 +56,28 @@ class ListTask extends Component {
     };
 
     removeTask = (e) => {
-        let indexElem = this.state.tasks[e.target.getAttribute("data-index")];
+        let indexElem = e.target.getAttribute("data-index");
         this.state.tasks.splice(indexElem, 1);
         this.setState({ tasks:  this.state.tasks});
         localStorage.setItem("tasks", JSON.stringify(this.state.tasks))
     };
 
     markedTask = (e) => {
-        this.state.tasks[e.target.getAttribute("data-index")].marked === true ?
-            this.state.tasks[e.target.getAttribute("data-index")].marked = false :
+        let date = new Date();
+        if (this.state.tasks[e.target.getAttribute("data-index")].marked === true) {
+            this.state.tasks[e.target.getAttribute("data-index")].marked = false;
+            this.state.tasks[e.target.getAttribute("data-index")].deadline = "";
+            this.setState({tasks: this.state.tasks});
+            localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
+        } else {
             this.state.tasks[e.target.getAttribute("data-index")].marked = true;
-        this.setState({ tasks:  this.state.tasks});
-        localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
+            this.state.tasks[e.target.getAttribute("data-index")].deadline = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}T${date.getHours()}:${date.getMinutes()}`;
+            this.setState({tasks: this.state.tasks});
+            localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
+        }
     };
 
     editShow = (e) => {
-        console.log(this.state.tasks[e.target.getAttribute("data-index")])
         this.state.tasks[e.target.getAttribute("data-index")].edit = true;
         this.setState({ tasks:  this.state.tasks});
 
@@ -103,9 +109,28 @@ class ListTask extends Component {
         }
     };
 
+    filteredList = (e) => {
+        if (e.target.textContent === "Все") {
+            this.setState({tasks: JSON.parse(localStorage.getItem("tasks"))})
+        } else {
+            let list = JSON.parse(localStorage.getItem("tasks")).filter((item)=>{
+                return item.priority === e.target.textContent
+            });
+            this.setState({tasks: list});
+        }
+
+    };
+
     render() {
         return (
             <section>
+                <section className="filtered">
+                    Фильтры:
+                    <a href="#" className="task__link" onClick={this.filteredList}>Все</a>
+                    <a href="#" className="task__link" onClick={this.filteredList}>Обычная</a>
+                    <a href="#" className="task__link" onClick={this.filteredList}>Важная</a>
+                    <a href="#" className="task__link" onClick={this.filteredList}>Очень важная</a>
+                </section>
                 <Input
                     addTask={this.addTask}
                 />
@@ -118,7 +143,7 @@ class ListTask extends Component {
                             this.state.tasks.map((i, index)=>{
                                 return (
                                     <Task
-                                        key={i.name}
+                                        key={index}
                                         name={i.name}
                                         desc={i.desc}
                                         priority={i.priority}
