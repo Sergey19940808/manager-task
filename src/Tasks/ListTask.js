@@ -25,7 +25,6 @@ class ListTask extends Component {
         let deadline = document.querySelector("input[name=deadline]");
 
         if (name.value !== "" && desc.value !== "") {
-
             this.setState(
                 {
                     tasks: this.state.tasks.concat({
@@ -66,12 +65,12 @@ class ListTask extends Component {
         let date = new Date();
         if (this.state.tasks[e.target.getAttribute("data-index")].marked === true) {
             this.state.tasks[e.target.getAttribute("data-index")].marked = false;
-            this.state.tasks[e.target.getAttribute("data-index")].deadline = "";
+            this.state.tasks[e.target.getAttribute("data-index")].finishTime = "";
             this.setState({tasks: this.state.tasks});
             localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
         } else {
             this.state.tasks[e.target.getAttribute("data-index")].marked = true;
-            this.state.tasks[e.target.getAttribute("data-index")].deadline = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}T${date.getHours()}:${date.getMinutes()}`;
+            this.state.tasks[e.target.getAttribute("data-index")].finishTime = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
             this.setState({tasks: this.state.tasks});
             localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
         }
@@ -148,6 +147,7 @@ class ListTask extends Component {
                                         desc={i.desc}
                                         priority={i.priority}
                                         deadline={i.deadline}
+                                        finishTime={i.finishTime}
                                         marked={i.marked}
                                         edit={i.edit}
                                         index={index}

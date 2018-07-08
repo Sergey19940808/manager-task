@@ -19,6 +19,8 @@ class Task extends Component {
     render() {
         let datetime = new Date();
         let isDeadline = Date.parse(datetime) > Date.parse(this.props.deadline);
+        console.log(Date.parse(datetime), this.props.deadline)
+
 
         return (
             <section className="task">
@@ -59,6 +61,12 @@ class Task extends Component {
                                 className={this.props.marked ? "task__item marked" : "task__item"}
                             >
                                 {this.props.deadline}
+                            </span>
+                            <span
+                                style={{ color: isDeadline === true ? "red": "" }}
+                                className={this.props.marked ? "task__item marked" : "task__item"}
+                            >
+                                {this.props.finishTime}
                             </span>
                             <a href="#" data-index={this.props.index} className="task__link" onClick={this.props.editShow}>
                                 Редактировать
